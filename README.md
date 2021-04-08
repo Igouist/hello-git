@@ -273,6 +273,13 @@ Git Commit Message 也是一樣的道理。
 
 趁開始學習 Git 的時候就培養好的 Commit 習慣，將來一定都會派上用場。現在我也和同事一起嘗試著這套作法，畢竟通常救到的都是未來的自己嘛，哈哈。
 
+> 關於 Commit Message 的部分，可以參照這幾篇呦：<br/>
+> 。 [Git Commit Message 這樣寫會更好，替專案引入規範與範例](https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html)<br/> 
+> 。 [如何寫一個 Git Commit Message | louie_lu's blog](https://blog.louie.lu/2017/03/21/如何寫一個-git-commit-message/)<br/>
+> 。 [撰寫有效的 Git Commit Message](http://blog.fourdesire.com/2018/07/03/%e6%92%b0%e5%af%ab%e6%9c%89%e6%95%88%e7%9a%84-git-commit-message/)<br/>
+> 。 [[學習筆記] 如何撰好的 Git Commit Message - Heidi's Blog](https://heidiliu2020.github.io/git-commit-message/)<br/>
+> 看完之後也可以試著制定自己的格式，其實也蠻有趣的呢（當然還是要以方便順手為主啦～）
+
 #### Commit 的時機
 
 另外，除了 Commit Message 以外，Commit 的時機和頻率也是時常被討論的議題。
