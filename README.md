@@ -1,44 +1,43 @@
 > 本文同步發表於部落格（好讀版 →）：https://igouist.github.io/post/2021/04/newbie-1-hello-git/
 
-![](https://i.imgur.com/N54Pg7s.png)
+![img](https://i.imgur.com/ojI91y9.png)
 
-這是俺整理公司新訓內容的第一篇文章，目標是整理 Git 相關的筆記。
+這是俺整理公司新訓內容的第一篇文章，目標是**整理 Git 相關的筆記**。
 
 - [前言、推薦資源](#前言推薦資源)
-- [什麼是 Git？](#什麼是-git)
-- [分散式版本控制](#分散式版本控制)
-- [確認 Git 已經安裝](#確認-git-已經安裝)
-- [建立一個新的儲存庫（Init）](#建立一個新的儲存庫init)
-- [加入變更（Add）](#加入變更add)
-- [提交變更（Commit）](#提交變更commit)
-  - [Commit 的訊息](#commit-的訊息)
-  - [Commit 的時機](#commit-的時機)
-  - [Commit 和 Add 的 Combo 技](#commit-和-add-的-combo-技)
-  - [加入 .gitignore 忽略檔案](#加入-gitignore-忽略檔案)
-- [提交紀錄（Log）](#提交紀錄log)
-- [版本差異（Diff）](#版本差異diff)
-- [關於 HEAD](#關於-head)
-- [Revert](#revert)
-- [Reset](#reset)
-- [分支（Branch）](#分支branch)
+  - [什麼是 Git？](#什麼是-git)
+  - [什麼是分散式版本控制？](#什麼是分散式版本控制)
+  - [先告訴 Git 我們是誰](#先告訴-git-我們是誰)
+- [建立一個新的儲存庫（Git Init）](#建立一個新的儲存庫git-init)
+- [把檔案加到 Git 的追蹤目標（Git Add）](#把檔案加到-git-的追蹤目標git-add)
+- [提交變更（Git Commit）](#提交變更git-commit)
+  - [Git Commit 的訊息該怎麼寫？](#git-commit-的訊息該怎麼寫)
+  - [Git Commit 的時機？](#git-commit-的時機)
+  - [Git Commit 和 Add 的 Combo 技](#git-commit-和-add-的-combo-技)
+  - [加入 .gitignore 來忽略指定檔案](#加入-gitignore-來忽略指定檔案)
+- [查詢 Commit 紀錄（Git Log）](#查詢-commit-紀錄git-log)
+- [查詢兩個 Commit 之間的差異（Git Diff）](#查詢兩個-commit-之間的差異git-diff)
+- [Git 的 HEAD 是什麼？](#git-的-head-是什麼)
+- [Git Revert：讓我們往回走一步](#git-revert讓我們往回走一步)
+- [Git Reset：讓我們搭上時光機](#git-reset讓我們搭上時光機)
+- [Git 的分支（Branch）是什麼？](#git-的分支branch是什麼)
   - [新建分支（branch）與切換分支（checkout）](#新建分支branch與切換分支checkout)
-  - [合併（Merge）](#合併merge)
-  - [衝突（Conflict）](#衝突conflict)
-  - [Rebase](#rebase)
-  - [查看分支列表、刪除分支](#查看分支列表刪除分支)
-  - [關於斷頭（detached HEAD）](#關於斷頭detached-head)
-  - [關於分支策略](#關於分支策略)
-- [遠端儲存庫（Remote）、推送（Push）](#遠端儲存庫remote推送push)
-- [擷取（Fatch）、提取（Pull）](#擷取fatch提取pull)
-- [Clone](#clone)
-- [關於提取要求（pull request）](#關於提取要求pull-request)
+  - [Git Stach：讓我們快速存個檔](#git-stach讓我們快速存個檔)
+  - [Git Merge：讓我們合併兩條分支吧](#git-merge讓我們合併兩條分支吧)
+  - [什麼是衝突（Conflict）？](#什麼是衝突conflict)
+  - [Git Rebase：讓我們移花接木](#git-rebase讓我們移花接木)
+  - [我們現在有哪些分支（Git Branch）？要怎麼刪除分支？](#我們現在有哪些分支git-branch要怎麼刪除分支)
+  - [認識 Git 的斷頭（detached HEAD）](#認識-git-的斷頭detached-head)
+  - [關於 Git 的分支策略](#關於-git-的分支策略)
+- [什麼是 Git 的遠端儲存庫（Remote）？<br/>要怎麼把變更推送（Push）到遠端儲存庫？](#什麼是-git-的遠端儲存庫remote要怎麼把變更推送push到遠端儲存庫)
+- [要怎麼從 Git 的遠端儲存庫拿到變更？認識擷取（Fatch）、提取（Pull）](#要怎麼從-git-的遠端儲存庫拿到變更認識擷取fatch提取pull)
+- [使用 Git Clone 直接把遠端儲存庫的 Repo 抓下來](#使用-git-clone-直接把遠端儲存庫的-repo-抓下來)
+- [認識 Git 的提取要求（pull request, PR）](#認識-git-的提取要求pull-request-pr)
 - [小結](#小結)
 - [本系列文章](#本系列文章)
 - [參考資料](#參考資料)
 
-<!--more-->
-
-### 前言、推薦資源
+## 前言、推薦資源
 
 說來慚愧，前陣子 PTT 和臉書社團都有討論到相關科系畢業卻不會 Git 會不會太誇張，我正是畢業之後才開始用 Git 的那類人囧，相信像我一樣的人並不少，因此這個系列就決定從「**新訓時學到的 Git 的基本操作**」開始記錄。
 
@@ -60,6 +59,8 @@
 
 接下來我們就從認識 Git 開始吧！
 
+---
+
 ### 什麼是 Git？
 
 你發生過以下狀況嗎？
@@ -76,15 +77,16 @@
 
 那麼，你很有可能需要 Git！
 
-<!--more-->
-
 **Git 是一套分散式的版本控制，就像是打電動時的存檔**。讓我們可以在面臨重要選擇的時候存檔、打王之前存檔、打贏的時候也存個檔。當然，像是那種有多劇情多結局的遊戲，也可以針對不同路線各自存檔。
 
 同時它也支援雲端存檔，你可以在電腦上存個檔，然後有網路的時候就丟上去雲端備份一下。而這個雲端備份是共用的，所以你可以跟朋友一起玩同一款遊戲，各自攻略不同的 BOSS，再把存檔和朋友互相交流交流，合成一個有兩份戰利品的存檔。
 
 這些功能在 Git 有著聽起來比較厲害的名字，例如認可（Commit）、分支（Branch）、分散式、合併（Merge）等等。我們後續再慢慢了解它們。
+<!--more-->
 
-### 分散式版本控制
+---
+
+### 什麼是分散式版本控制？
 
 現在我們已經有個大致上的印象了，但 Git 還有更多特色，例如：
 
@@ -107,7 +109,9 @@
 
 現在我們知道了 Git 是一個分散式的版本控制軟體，幫助我們做一些存檔讀檔同步的動作。接著就讓我們開始來操作看看吧！
 
-### 確認 Git 已經安裝
+---
+
+### 先告訴 Git 我們是誰
 
 > 小提示：你可能需要先 [安裝 Git](https://git-scm.com/downloads)。<br/>安裝過程相當簡單，通常只需要下一步即可。
 
@@ -137,20 +141,24 @@ git config --global user.email "Thanos@Gemmai1.com"
 
 > 順便打個廣告：好奇我的 Powershell 長得跟你的「有點不一樣」的朋友，可以參考本部落格的另一篇：[Powershell 美化作戰](/post/2020/08/powershell-beauty/)
 
-### 建立一個新的儲存庫（Init）
+---
+
+## 建立一個新的儲存庫（Git Init）
 
 現在讓我們從建立一個新的儲存庫開始。現在讓我們新增一個資料夾（在這邊我取名叫做 `hello-git`）當作這篇 Git 紀錄的遊樂場：
 
 ![](https://i.imgur.com/hPLoleB.png)
 
-> 題外話：既然都打指令了，也可以試試來建立資料夾 <br/> Powershell 用 `New-Item C:\hello-git -ItemType "directory"` <br/>隔壁棚 Linux 請用 `mkdir` 來試試。<br/>不過基於懶惰，上面的示範是滑鼠右鍵建立的，耶嘿
+> 題外話：既然都打指令了，也可以試試來建立資料夾 <br/>Powershell 用 `New-Item C:\hello-git -ItemType "directory"` <br/>隔壁棚 Linux 請用 `mkdir` 來試試。<br/>不過基於懶惰，上面的示範是滑鼠右鍵建立的，耶嘿
 
 接著讓我們先移動過去資料夾：
+
 ```powershell
 cd C:\hello-git
 ```
 
 並且**使用 `git init` 將 Git 初始化**：
+
 ```powershell
 git init
 ```
@@ -171,7 +179,9 @@ git init
 
 可以看到我們現在在 Master 分支，並且還沒有 Commit 任何東西。這兩個部分我們等等就會說明，現在就讓我們按照它的提示，來把檔案丟進去給 Git 試試吧。
 
-### 加入變更（Add）
+---
+
+## 把檔案加到 Git 的追蹤目標（Git Add）
 
 我們先到 hello-git 資料夾裡，新增一個 `A.txt`
 
@@ -229,7 +239,9 @@ git add --all
 
 當我們把變更從工作區用 add 丟到暫存區之後，要怎麼再從暫存區丟進儲存庫呢？這時候就要使用 `Commit` 了！
 
-### 提交變更（Commit）
+---
+
+## 提交變更（Git Commit）
 
 完成了一項功能？　Commit！<br/>解了一個ＢＵＧ？　Commit！<br/>下班了？　Commit！<br/>地震了？　Commit！
 
@@ -245,7 +257,9 @@ git commit -m "Add A.txt"
 
 有看到 ~ file changed 就代表我們已經成功 Commit，把變更存進儲存庫囉！
 
-#### Commit 的訊息
+---
+
+### Git Commit 的訊息該怎麼寫？
 
 這邊要特別提的是 `-m "Add A.txt"` 這個部分。`-m` 就是 Message 的 m（好順口），是用來輸入本次 Commit 的訊息，雖然可以省略，但**強烈建議 Commit 的時候都一定要加上訊息！**
 
@@ -280,7 +294,15 @@ Git Commit Message 也是一樣的道理。
 > 。 [[學習筆記] 如何撰好的 Git Commit Message - Heidi's Blog](https://heidiliu2020.github.io/git-commit-message/)<br/>
 > 看完之後也可以試著制定自己的格式，其實也蠻有趣的呢（當然還是要以方便順手為主啦～）
 
-#### Commit 的時機
+> 補充：如果不小心打錯 Commit Message 之類的怎麼辦？
+> 
+> 像我這種錯字狂魔，幾乎兩三天就會打錯字就按下去。這時候我們就會需要 `--amend`！
+> 
+> 可以參照：[【狀況題】修改 Commit 紀錄 - 為你自己學 Git](https://gitbook.tw/chapters/using-git/amend-commit1)
+
+---
+
+### Git Commit 的時機？
 
 另外，除了 Commit Message 以外，Commit 的時機和頻率也是時常被討論的議題。
 
@@ -298,11 +320,13 @@ Git Commit Message 也是一樣的道理。
 寧可多 Commit 幾次，等熟練 Git 的時候，<s>或是被靠夭洗版的時候</s>，再考慮用 rebase 之類的技能來把多個零碎的 Commit 整理成一個；也不要臨時出了什麼事，結果 Git 一打開，只能回到一個月前，那真的是欲哭無淚。阿彌陀佛，保護自己，就從 Commit 開始。
 
 > 如果你現在已經有整理 Commit 的需求，可以參照以下幾篇：<br/>
-> [【狀況題】修改 Commit 紀錄 - 為你自己學 Git ](https://gitbook.tw/chapters/using-git/amend-commit1.html)<br/>
-> [送 PR 前，使用 Git rebase 來整理你的 commit 吧！ - 星巴哥技術專欄](https://medium.com/starbugs/use-git-interactive-rebase-to-organize-commits-85e692b46dd)<br/>
-> [把多個 Commit 合併成一個 Commit - 為你自己學 Git](https://gitbook.tw/chapters/rewrite-history/merge-multiple-commits-to-one-commit.html)
+> 。 [【狀況題】修改 Commit 紀錄 - 為你自己學 Git ](https://gitbook.tw/chapters/using-git/amend-commit1.html)<br/>
+> 。 [送 PR 前，使用 Git rebase 來整理你的 commit 吧！ - 星巴哥技術專欄](https://medium.com/starbugs/use-git-interactive-rebase-to-organize-commits-85e692b46dd)<br/>
+> 。 [把多個 Commit 合併成一個 Commit - 為你自己學 Git](https://gitbook.tw/chapters/rewrite-history/merge-multiple-commits-to-one-commit.html)
 
-#### Commit 和 Add 的 Combo 技
+---
+
+### Git Commit 和 Add 的 Combo 技
 
 讓我們延續一下 Add 章節的「懶還要更懶」，現在當我們完成一個變更，就要先 Add 到暫存區，再 Commit 到儲存庫。如果覺得這個兩步驟驗證很麻煩的話要怎麼辦呢？
 
@@ -316,7 +340,9 @@ git commit -a -m "Update A.txt"
 
 關於這段 `工作區 -Add→ 暫存區 -Commit→ 儲存庫` 的說明，也可以參見這篇為你自己學 Git 的[工作區、暫存區與儲存庫](https://gitbook.tw/chapters/using-git/working-staging-and-repository.html)，裡面用倉庫和廣場的比喻個人覺得很貼切。
 
-#### 加入 .gitignore 忽略檔案
+---
+
+### 加入 .gitignore 來忽略指定檔案
 
 如果你跟我一樣，總是 `add -a` 無差別加入，或是 GUI 的一鍵 Commit 用太爽，很容易就會翻車。怎麼個翻車法呢？我在新訓的時候就有被問過：
 
@@ -352,7 +378,9 @@ ignoreme.txt
 
 ![](https://i.imgur.com/WTr6t7f.png)
 
-### 提交紀錄（Log）
+---
+
+## 查詢 Commit 紀錄（Git Log）
 
 現在我們已經可以成功存檔了，但有玩過遊戲的都知道，通常都會有個地方讓你看當前的存檔和紀錄等等。那麼**在 Git 中要怎麼看我們的 Commit 記錄呢**？這時候就要用到 `log` 指令。
 
@@ -377,8 +405,8 @@ ignoreme.txt
 - Commit 用 SHA-1 計算出來的識別碼，可以當成是這個 Commit 的唯一 ID、身分證編號就行了
 - 分支所在的 Commit
   - HEAD 是指向我們當前所在的分支，而我們 HEAD 所在的 master 分支則是在 743d... 這個 Commit 上
-  - 關於 HEAD 我們會在 [關於 HEAD](#關於-head) 繼續說明
-  - 關於 分支 我們會在 [分支](#分支branch) 繼續說明
+  - 關於 HEAD 我們會在 [Git 的 head 是什麼](#git-的-head-是什麼) 繼續說明
+  - 關於 分支 我們會在 [Git 的分支（branch）是什麼](#git-的分支branch是什麼) 繼續說明
 
 > 題外話：如果有朋友在 windows 上，例如 powershell 使用 `git log` 或 git 相關指令有出現**中文亂碼**的情形，可以參考以下的語法進行調整：
 >
@@ -399,7 +427,7 @@ ignoreme.txt
 
 ![](https://i.imgur.com/V9ysh2L.png)
 
-可以看到 Log 變得相當精簡了。在我們後續會講到的[分支](#分支branch)情景下，線圖還會幫忙畫出不同分支路線（平常有使用 Git 的 GUI 工具的朋友們應該都很熟悉了）
+可以看到 Log 變得相當精簡了。在我們後續會講到的[分支](#git-的分支branch是什麼)情景下，線圖還會幫忙畫出不同分支路線（平常有使用 Git 的 GUI 工具的朋友們應該都很熟悉了）
 
 這邊就借朋友的 Project 示範一下：
 
@@ -413,7 +441,7 @@ ignoreme.txt
 -  `git log ShitCodeController.cs` 
 - 「噢，是我啊…」
 
-這部份有興趣的朋友可以參考以下兩篇的說明，尤其是 為你自己學 Git 這篇裡面的狀況題相當實用，每天抓戰犯（？）的時候都會用到，掌握：
+這部份有興趣的朋友可以參考以下兩篇的說明，尤其是 為你自己學 Git 這篇裡面的狀況題相當實用，每天抓戰犯（？）的時候都會用到：
 - [檢視紀錄 - 為你自己學 Git](https://gitbook.tw/chapters/using-git/log.html)
 - [Git log 進階應用 - Jame's Blog](http://jamestw.logdown.com/posts/238719-advanced-git-log)
 
@@ -421,7 +449,9 @@ ignoreme.txt
 
 ![](https://i.imgur.com/9BYAkeV.png)
 
-### 版本差異（Diff）
+---
+
+## 查詢兩個 Commit 之間的差異（Git Diff）
 
 有些朋友可能會問：「我知道每一次 Commit 了，但我還是不知道每個 Commit 到底動了哪些地方呀？」
 
@@ -492,13 +522,15 @@ diff 相關的文章也可以參照這幾篇，也是本節的主要參考資料
 
 但是每次 `diff` 的時候，我都還要查出兩個版本的 SHA1 碼，如果我只是要看這一版和前一版的差異，這麼簡單的場景卻要弄得那麼複雜，不是很麻煩嗎？這時候我們就可以借助 `HEAD` 的力量，讓語法變得更簡單！
 
-### 關於 HEAD
+---
 
-從上面的許多操作中，例如 [顯示 Commit Log 時](#歷史紀錄log)，都可以看到 HEAD 這個關鍵字，例如 (HEAD -> master)。
+## Git 的 HEAD 是什麼？
+
+從上面的許多操作中，例如 [顯示 Commit Log 時](#查詢-commit-紀錄git-log)，都可以看到 HEAD 這個關鍵字，例如 (HEAD -> master)。
 
 **HEAD 基本上可以當作「目前位置」的概念，它是一個會指向當前分支的指標。**
 
-通常來說，HEAD 會指向目前所在的分支最新的一個 Commit（除非發生[斷頭](#關於斷頭detached-head)）。
+通常來說，HEAD 會指向目前所在的分支最新的一個 Commit（除非發生[斷頭](#認識-git-的斷頭detached-head) ）。
 
 但由於我們還沒有認識分支，當然也沒有針對分支進行任何操作，因此 HEAD 就會指向我們的預設分支 master（Github 現在改叫做 main 了），所以現在直接把 HEAD 當成目前所在位置就可以了。
 
@@ -513,7 +545,9 @@ diff 相關的文章也可以參照這幾篇，也是本節的主要參考資料
 - [【冷知識】HEAD 是什麼東西？ - 為你自己學 Git](https://gitbook.tw/chapters/using-git/what-is-head.html)
 - [深入 Git：HEAD refs - Titangene Blog](https://titangene.github.io/article/git-head-ref.html)
 
-### Revert
+---
+
+## Git Revert：讓我們往回走一步
 
 > 「以前我沒得選，現在我想做個好人。」
 > 
@@ -523,7 +557,7 @@ diff 相關的文章也可以參照這幾篇，也是本節的主要參考資料
 
 大多數的遊戲都有「上一步」、「悔棋」、「恢復上一動！懷疑啊？」這類的動作，在 Git 中則是叫做 `Revert`。
 
-不過「我這一步完全不算」，**`Revert` 比較像是「我再把棋子移回去就是了」的概念**。也就是說，雖然是悔棋，但是這個悔棋本身也算是一步的意思。
+不過比起「我這一步完全不算」，**`Revert` 比較像是「我再把棋子移回去就是了」的概念**。也就是說，雖然是悔棋，但是這個悔棋本身也算是一步的意思。
 
 這個部份直接試看看會比較好了解，讓我們把 A.txt 打開，並且把內容改成
 
@@ -570,7 +604,9 @@ git revert HEAD  --no-edit
 
 這時候就要用 `Reset` 了。
 
-### Reset
+---
+
+## Git Reset：讓我們搭上時光機
 
 > 「要是能重來，我要選李白。幾百年前寫的 Bug 沒那麼多人幹」
 
@@ -627,9 +663,10 @@ Git 跟我們說「你已經回到了 `6fbe` 這個 Commit 囉」接著讓我們
 
 等等這種情景，再自己取捨一下要用哪種時空旅行方法囉。
 
-關於 `reset` 和這三個模式，為你自己學 Git 的表格整理得很不錯。這邊加上延伸閱讀：
+關於 `reset` 和這三個模式，為你自己學 Git 的表格整理得很不錯。這邊加上延伸閱讀（其實就是為你自己學 Git 的 Revert, Reset 系列文）：
 - [【狀況題】剛才的 Commit 後悔了，想要拆掉重做 - 為你自己學 Git](https://gitbook.tw/chapters/using-git/reset-commit.html)
 - [【狀況題】不小心使用 hard 模式 Reset 了某個 Commit，救得回來嗎？ - 為你自己學 Git](https://gitbook.tw/chapters/using-git/restore-hard-reset-commit.html)
+- [Reset、Revert 跟 Rebase 指令有什麼差別？ - 為你自己學 Git](https://gitbook.tw/chapters/rewrite-history/reset-revert-and-rebase.html)
 
 > 題外話：如果真的遇到要把目前的 Commit 整條捨棄回到某個時間點的狀況，建議還是用後面學到的分支，把不要的 Commit 先拉出一條分支留著一陣子。
 >
@@ -641,7 +678,9 @@ Git 跟我們說「你已經回到了 `6fbe` 這個 Commit 囉」接著讓我們
 > 
 > 所以切記切記，魔鬼藏在 Commit 裡！
 
-### 分支（Branch）
+---
+
+## Git 的分支（Branch）是什麼？
 
 就算是超級英雄片也會有團隊合作各司其職的時候，程式開發上一定也會遇到多人合作的狀況，這時候我們就不能一路無腦 Commit 下去。
 
@@ -663,7 +702,9 @@ Git 跟我們說「你已經回到了 `6fbe` 這個 Commit 囉」接著讓我們
 
 那麼，我們現在就來記錄一下分支的基本操作吧。
 
-#### 新建分支（branch）與切換分支（checkout）
+---
+
+### 新建分支（branch）與切換分支（checkout）
 
 我們在預設狀況下，就會位於 Master（有些地方是 Main）分支上，首先讓我們從新建分支與切換分支開始嘗試。在 `hello-git` 中，新增兩個檔案：`B.txt` 和 `C.txt`，現在資料夾應該會是這個樣子：
 
@@ -679,7 +720,9 @@ Git 跟我們說「你已經回到了 `6fbe` 這個 Commit 囉」接著讓我們
 git branch Branch-B
 ```
 
-> 補充：**分支拉出來的 Commit 點稱為 `Base`**。由於任兩個 Branch 一定會找得到一個共同的 base，因此我們在對分支間做合併和比較時，並不是將整份拿出來做大量核對，而是從這個 Base 當作基準點來進行變更的比較。這個 base 的概念和我們後續的 [合併](#合併merge)、[衝突](#衝突conflict) 等操作會比較相關。
+> 補充：**分支拉出來的 Commit 點稱為 `Base`**。由於任兩個 Branch 一定會找得到一個共同的 base，因此我們在對分支間做合併和比較時，並不是將整份拿出來做大量核對，而是從這個 Base 當作基準點來進行變更的比較。這個 base 的概念和我們後續的 [合併](#git-merge讓我們合併兩條分支吧)、[衝突](#什麼是衝突conflict) 等操作會比較相關。
+
+> 補充：如果建立分支的時候不小心取錯名字之類的，可以先偷看後面的 [查詢分支列表、刪除分支](#我們現在有哪些分支git-branch要怎麼刪除分支) 的小節。如果一切順利的話，我們後續在 ~~利用完分支~~ 跑完整個流程才會進行分支的刪除，請繼續看下去囉～
 
 建立分支後，我們再**使用 `git checkout` 簽出分支**：
 
@@ -690,14 +733,6 @@ git checkout Branch-B
 應該可以看到 Git 告訴你已經切換到 Branch-B 了，我們也可以用 `git status` 來進行確認：
 
 ![](https://i.imgur.com/mrektkG.png)
-
-要注意，checkout 只能在已經 Commit 的情況下進行。如果萬不得已必須中斷手上工作切換到其他分支的時候，可以使用 `stach` 來做暫存的動作。
-
-關於 `stach` 的使用方式，由於我個人比較少用，故不再贅述，可以參照以下兩篇：
-
-- [Stash暫存 · GIT教學](https://kingofamani.gitbooks.io/git-teach/content/chapter_3_branch/stash.html)
-- [菜鳥工程師 肉豬: Git stash 暫存正在修改的內容](https://matthung0807.blogspot.com/2019/11/git-stash.html)
-
 
 > 題外話：用 `branch` 來建立新分支應該相當直覺，但為什麼是用 `checkout` 來切換分支呢？
 > 
@@ -731,7 +766,31 @@ git checkout master
 
 - [【狀況題】我可以從過去的某個 Commit 再長一個新的分支出來嗎？ - 為你自己學 Git](https://gitbook.tw/chapters/branch/branch-from-old-commit.html)
 
-#### 合併（Merge）
+---
+
+### Git Stach：讓我們快速存個檔
+
+要注意，checkout 只能在已經 Commit 的情況下進行。如果萬不得已必須中斷手上工作切換到其他分支的時候（例如突然被叫去修正式環境的東西），可以使用 `stach` 來做暫存的動作。
+
+關於 `stach` 的使用方式，由於我個人比較少用，故不再贅述，可以參照以下兩篇：
+
+- [Stash暫存 · GIT教學](https://kingofamani.gitbooks.io/git-teach/content/chapter_3_branch/stash.html)
+- [菜鳥工程師 肉豬: Git stash 暫存正在修改的內容](https://matthung0807.blogspot.com/2019/11/git-stash.html)
+
+(2021/4/30) 補充:
+
+才剛說比較少用而已，結果沒多久就遇到需要使用 `stach` 來暫存的時候囧。所以這邊還是簡單記一下語法，感謝 [連猴子都能懂的 Git 入門指南](https://backlog.com/git-tutorial/tw/reference/stash.html)：
+
+- `git stash` 直接進行暫存
+- `git stash save` 可以在 save 後面替這次暫存取名字
+- `git stash list` 可以看現在有哪些暫存
+- `git stash pop`  可以取出最新的暫存，或指定 ID 來取出指定暫存
+- `git stash drop` 可以刪除最新的暫存，或指定 ID 來刪除指定暫存
+- `git stash clear` 刪除所有暫存
+
+---
+
+### Git Merge：讓我們合併兩條分支吧
 
 > 「真是太諷刺了紹安，你拉了新分支繞了一大圈，<br/>　最後做出來的 feature 竟然是你不想做的，你老闆的需求。<br/>
 > 　所以說呢，分支最後終究是要回到 master 來的，<br/>　這四千個 Commit 的盡頭 Merge，或許正是你的極限也說不定。」
@@ -768,7 +827,9 @@ git checkout Branch-B
 
 這樣就成功將兩個負責不同項目的分支裡的變更都合併回 master 囉！
 
-#### 衝突（Conflict）
+---
+
+### 什麼是衝突（Conflict）？
 
 當然，不是每一次合併都能順利，就像不是每次合作都能順利一樣。只要兩個分支**有共同增刪改同一份文件同一個區塊，在合併的時候就會發生衝突**。
 
@@ -776,7 +837,9 @@ git checkout Branch-B
 
 現在讓我們來實際操作看看吧：
 
-首先，讓我們先確認自己在 master，然後新建並簽出一支新的分支 `Branch-X`：
+首先，讓我們先確認自己在 master，然後新建並簽出一支新的分支 `Branch-X`。
+
+如果要同時做簽出並且新建分支的話，可以在 `checkout` 的時候加上 `-b` 試試：
 
 ```
 git checkout -b Branch-X
@@ -843,7 +906,9 @@ git merge Branch-X
 
 > 補充：如果衝突的檔案不是文字檔而是圖片檔，又或者是接下來要說明的 rebase 造成的衝突，處理的方式會不太一樣。可以參考為你自己學 Git 的這篇 [合併發生衝突了，怎麼辦？](https://gitbook.tw/chapters/branch/fix-conflict.html)
 
-#### Rebase 
+---
+
+### Git Rebase：讓我們移花接木
 
 在處理分支的時候還有另一種合併方式，就是使用 Rebase。
 
@@ -872,13 +937,15 @@ Rebase 跟 Merge 最明顯的差別在於 Rebase 是將這個分支 **逐步移�
 
 此外，Rebase 也可以用來修改先前的 Commit 之類的，例如搭配 `squash` 來把多個 Commit 壓縮成一個 Commit，請參見 [使用 rebase -i 合併提交](https://backlog.com/git-tutorial/tw/stepup/stepup7_6.html)、[送 PR 前，使用 Git rebase 來整理你的 commit 吧！](https://medium.com/starbugs/use-git-interactive-rebase-to-organize-commits-85e692b46dd)
 
-#### 查看分支列表、刪除分支
+---
 
-現在我們針對分支的基本操作已經告一段落。可以用 `git branch` 來稍微看一下都開了哪些分支。
+### 我們現在有哪些分支（Git Branch）？要怎麼刪除分支？
+
+現在我們針對分支的基本操作已經告一段落。可以用 `git branch` 來稍微看一下本地端的儲存庫都開了哪些分支。
 
 ![](https://i.imgur.com/QPcfALx.png)
 
-前面加上 * 號的就是當前所在的分支，如果已經和遠端儲存庫連線的朋友，也可以使用 `-r` 參數來看遠端儲存庫上的分支，用 `-a` 來看所有分支，遠端儲存庫的分支將會用 `remotes/` 開頭。
+前面加上 * 號的就是當前所在的分支，如果已經和遠端儲存庫連線的朋友，也可以使用 `-r` 參數來看遠端儲存庫上的分支，用 `-a` 來看本地和遠端的所有分支。另外，遠端儲存庫的分支將會用 `remotes/` 開頭。
 
 由於前面示範合併和衝突的分支們的工作都已經告一段落了，我們現在就要稍微清理一下它們。要刪除分支，只需要加上 `-d` 參數就可以了，像現在這個例子就是：
 
@@ -895,7 +962,9 @@ git branch -d Branch-Y
 
 ![](https://i.imgur.com/2aslDOI.png)
 
-#### 關於斷頭（detached HEAD）
+---
+
+### 認識 Git 的斷頭（detached HEAD）
 
 我們在前面切換分支的時候，主要是使用 `checkout` 來進行。但如果我們並不是針對某個 branch 去做 `checkout`，而是對某個 commit 去做的時候，就會變成斷頭狀態。
 
@@ -910,7 +979,9 @@ git branch -d Branch-Y
 - [【冷知識】斷頭（detached HEAD）是怎麼一回事？ - 為你自己學 Git](https://gitbook.tw/chapters/faq/detached-head.html)
 - [【冷知識】為什麼大家都說在 Git 開分支「很便宜」？ - 為你自己學 Git](https://gitbook.tw/chapters/branch/why-branch-is-cheap.html)
 
-#### 關於分支策略
+---
+
+### 關於 Git 的分支策略
 
 既然是團隊合作，雖然大家各自拉了一條分支出去做事，但還是要有點 SOP，這就叫做分支策略。
 
@@ -936,11 +1007,16 @@ git branch -d Branch-Y
 - [團隊的 GIT 分支管理策略 (1) ： 基本概念](https://medium.com/%E5%93%88%E5%98%8D-%E4%B8%96%E7%95%8C/%E5%9C%98%E9%9A%8A%E7%9A%84-git-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5-449bc229c957)
 - [團隊的 GIT 分支管理策略 (2) ： 主線整合與功能分支](https://medium.com/%E5%93%88%E5%98%8D-%E4%B8%96%E7%95%8C/%E5%9C%98%E9%9A%8A%E7%9A%84-git-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86%E7%AD%96%E7%95%A5-2-%E6%95%B4%E5%90%88%E9%A0%BB%E7%8E%87%E5%B0%8D%E5%9C%98%E9%9A%8A%E6%95%88%E7%8E%87%E7%9A%84%E5%BD%B1%E9%9F%BF-bedbbdd3e70e)
 
-### 遠端儲存庫（Remote）、推送（Push）
+---
+
+## 什麼是 Git 的遠端儲存庫（Remote）？<br/>要怎麼把變更推送（Push）到遠端儲存庫？
 
 > 開始本章節之前，你可能需要先註冊好 [Github](https://github.com/)，註冊過程挺簡單的，不用擔心
 
 既然都已經使用 Git 了，當然要推送到遠端儲存庫啦！作為儲存庫的服務有蠻多的，例如 Github、GitLab、Gitea 等等，本篇會以最知名的工程師交友網站 Github 為例。
+
+> "what's the difference between git and github?" <br/>
+> "It's the difference between porn and pornhub."  ([Reddit](https://www.reddit.com/r/github/comments/g5030w/))
 
 首先讓我們在 Github 上新建一個儲存庫，從 My Repositories 或是首頁進去都可以：
 
@@ -1005,7 +1081,9 @@ git push origin main
 >
 > 不過說實在的，還是祈禱不會遇到需要 `-f` 的那一天吧…
 
-### 擷取（Fatch）、提取（Pull）
+---
+
+## 要怎麼從 Git 的遠端儲存庫拿到變更？認識擷取（Fatch）、提取（Pull）
 
 上傳到雲端已經沒問題了，那從雲端下載到本機呢？這時候我們就需要用到 `fetch` 和 `pull` 這兩個指令。
 
@@ -1053,7 +1131,9 @@ git pull origin main
 
 可以看到我們的 `main` 分支已經跟上 `origin/main` 的進度囉！
 
-### Clone
+---
+
+## 使用 Git Clone 直接把遠端儲存庫的 Repo 抓下來
 
 上面我們已經嘗試過「本機有儲存庫，上傳到遠端儲存庫」的場景了。但是大多數時候，像是我們在公司會需要接手開發專案啦、使用人家已經寫好的工具啦等等，都是「**本機沒有任何東西，要從遠端進行下載**」的場景。
 
@@ -1085,7 +1165,9 @@ git clone https://github.com/yourGithubName/yourGithubRepository.git
 
 **Clone 下來的儲存庫會自動建立和遠端儲存庫的繫結**，也就是已經是 `git remote add ` 好的狀態，相當方便。接著後續就和基本的 Git 操作一樣囉。
 
-### 關於提取要求（pull request）
+---
+
+## 認識 Git 的提取要求（pull request, PR）
 
 如果你 Clone 的是自己的儲存庫，當然就可以開始工作後 `Add` `Commit` `Push` 連發，但如果不是你自己的儲存庫，又想要幫忙修改東西，或是工作上有審核機制，該怎麼辦呢？
 
@@ -1100,8 +1182,9 @@ PR 比較常見於社群協作，還有工作上的提交審核等等，也由�
 - [與其它開發者的互動 - 使用 Pull Request（PR）- 為你自己學 Git](https://gitbook.tw/chapters/github/pull-request.html)
 - [[02][讓團隊彼此知道程式碼走向]何爲Pull Request並且如何建立 - 以Azure DevOps爲例](https://blog.alantsai.net/posts/2019/05/code-review-02-what-is-pull-request-and-how-to-create-it-in-azure-devops)
 
+---
 
-### 小結
+## 小結
 
 本來只是想介紹一下 Git 的一些基本操作，沒想到越弄越長（汗），儘管如此，還是有很多說明不到的地方（例如提取要求、分支策略等等），留待各位實戰的時候細細體會了。
 
@@ -1109,12 +1192,21 @@ PR 比較常見於社群協作，還有工作上的提交審核等等，也由�
 
 那麼，這篇就先到這裡啦，這個系列終於還是開坑了，希望這次也能順順利利了…吧。那麼，我們下次見！
 
-### 本系列文章
+> 本系列下一篇：[菜雞新訓記 (2): 認識 Api & 使用 .net Core 來建立簡單的 Web Api 服務吧](/post/2021/05/newbie-2-webapi)
 
-- [菜雞新訓記 (0): 目錄](https://igouist.github.io/post/2021/04/newbie-0-menu)
-- [菜雞新訓記 (1): Git 入門這樣做](https://igouist.github.io/post/2021/04/newbie-1-hello-git/)
 
-### 參考資料
+## 本系列文章
+
+- [菜雞新訓記 (0): 目錄](/post/2021/04/newbie-0-menu)
+- [菜雞新訓記 (1): 使用 Git 來進行版本控制吧](/post/2021/04/newbie-1-hello-git)
+- [菜雞新訓記 (2): 認識 Api & 使用 .net Core 來建立簡單的 Web Api 服務吧](/post/2021/05/newbie-2-webapi)
+- [菜雞新訓記 (3): 使用 Dapper 來連線到資料庫 CRUD 吧](/post/2021/05/newbie-3-dapper)
+- [菜雞新訓記 (4): 使用 Swagger 來自動產生可互動的 API 文件吧](/post/2021/05/newbie-4-swagger)
+- [菜雞新訓記 (5): 使用 三層式架構 來切分服務的關注點和職責吧](/post/2021/10/newbie-5-3-layer-architecture)
+- [菜雞新訓記 (6): 使用 依賴注入 (Dependency Injection) 來解除強耦合吧](/post/2021/11/newbie-6-dependency-injection)
+- [菜雞新訓記 (7): 使用 FluentValidation 來驗證傳入參數吧](/post/2022/03/newbie-7-fluent-validation)
+
+## 參考資料
 
 - [為你自己學 Git](https://gitbook.tw/)
 - [連猴子都能懂的 Git 入門指南](https://backlog.com/git-tutorial/tw/)
@@ -1127,7 +1219,7 @@ PR 比較常見於社群協作，還有工作上的提交審核等等，也由�
 - [Git Commit Message 這樣寫會更好，替專案引入規範與範例 (wadehuanglearning.blogspot.com)](https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html)
 - [如何寫一個 Git Commit Message | louie_lu's blog](https://blog.louie.lu/2017/03/21/如何寫一個-git-commit-message/)
 - [git diff命令 - Git教程教學 | 程式教程網 (1ju.org)](https://www.1ju.org/git/git-diff)
-- [30 天精通 Git 版本控管 (09)：比對檔案與版本差異 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天 (ithome.com.tw)](https://ithelp.ithome.com.tw/articles/10135441)
+- [30 天精通 Git 版本控管 (09)：比對檔案與版本差異 - iT 邦幫忙 (ithome.com.tw)](https://ithelp.ithome.com.tw/articles/10135441)
 - [Git - 查看提交历史 (git-scm.com)](https://git-scm.com/book/zh/v2/Git-基础-查看提交历史)
 - [Git 筆記 - 產生程式異動對照表(Compare List)-黑暗執行緒 (darkthread.net)](https://blog.darkthread.net/blog/diff2html-webpage/)
 - [Git 版本控制系統 - 比對檔案版本差異與標示說明 | Roya's Blog (awdr74100.github.io)](https://awdr74100.github.io/2020-04-27-git-diff/)
@@ -1149,4 +1241,4 @@ PR 比較常見於社群協作，還有工作上的提交審核等等，也由�
 - [Git Flow 是什麼？為什麼需要這種東西？](https://gitbook.tw/chapters/gitflow/why-need-git-flow.html)
 - [淺談 Git Flow 與 commit 規範 | Welcome.Web.World (hsiangfeng.github.io)](https://hsiangfeng.github.io/git/20200914/1124442109/)
 - [與其它開發者的互動 - 使用 Pull Request（PR）- 為你自己學 Git](https://gitbook.tw/chapters/github/pull-request.html)
-- [[02][讓團隊彼此知道程式碼走向]何爲Pull Request並且如何建立 - 以Azure DevOps爲例](https://blog.alantsai.net/posts/2019/05/code-review-02-what-is-pull-request-and-how-to-create-it-in-azure-devops)
+- [[02][讓團隊彼此知道程式碼走向] 何爲Pull Request並且如何建立 - 以Azure DevOps爲例](https://blog.alantsai.net/posts/2019/05/code-review-02-what-is-pull-request-and-how-to-create-it-in-azure-devops)
