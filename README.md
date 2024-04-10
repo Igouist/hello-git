@@ -1,8 +1,8 @@
-> 本文同步發表於部落格（好讀版 →）：https://igouist.github.io/post/2021/04/newbie-1-hello-git/
-
 ![img](https://i.imgur.com/ojI91y9.png)
 
 這是俺整理公司新訓內容的第一篇文章，目標是**整理 Git 相關的筆記**。
+
+> 本文同步發表於部落格（好讀版 →）：https://igouist.github.io/post/2021/04/newbie-1-hello-git/
 
 - [前言、推薦資源](#前言推薦資源)
   - [什麼是 Git？](#什麼是-git)
