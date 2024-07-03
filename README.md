@@ -22,7 +22,7 @@
 - [Git Reset：讓我們搭上時光機](#git-reset讓我們搭上時光機)
 - [Git 的分支（Branch）是什麼？](#git-的分支branch是什麼)
   - [新建分支（branch）與切換分支（checkout）](#新建分支branch與切換分支checkout)
-  - [Git Stach：讓我們快速存個檔](#git-stach讓我們快速存個檔)
+  - [Git Stash：讓我們快速存個檔](#git-stash讓我們快速存個檔)
   - [Git Merge：讓我們合併兩條分支吧](#git-merge讓我們合併兩條分支吧)
   - [什麼是衝突（Conflict）？](#什麼是衝突conflict)
   - [Git Rebase：讓我們移花接木](#git-rebase讓我們移花接木)
@@ -768,18 +768,18 @@ git checkout master
 
 ---
 
-### Git Stach：讓我們快速存個檔
+### Git Stash：讓我們快速存個檔
 
-要注意，checkout 只能在已經 Commit 的情況下進行。如果萬不得已必須中斷手上工作切換到其他分支的時候（例如突然被叫去修正式環境的東西），可以使用 `stach` 來做暫存的動作。
+要注意，checkout 只能在已經 Commit 的情況下進行。如果萬不得已必須中斷手上工作切換到其他分支的時候（例如突然被叫去修正式環境的東西），可以使用 `stash` 來做暫存的動作。
 
-關於 `stach` 的使用方式，由於我個人比較少用，故不再贅述，可以參照以下兩篇：
+關於 `stash` 的使用方式，由於我個人比較少用，故不再贅述，可以參照以下兩篇：
 
 - [Stash暫存 · GIT教學](https://kingofamani.gitbooks.io/git-teach/content/chapter_3_branch/stash.html)
 - [菜鳥工程師 肉豬: Git stash 暫存正在修改的內容](https://matthung0807.blogspot.com/2019/11/git-stash.html)
 
 (2021/4/30) 補充:
 
-才剛說比較少用而已，結果沒多久就遇到需要使用 `stach` 來暫存的時候囧。所以這邊還是簡單記一下語法，感謝 [連猴子都能懂的 Git 入門指南](https://backlog.com/git-tutorial/tw/reference/stash.html)：
+才剛說比較少用而已，結果沒多久就遇到需要使用 `stash` 來暫存的時候囧。所以這邊還是簡單記一下語法，感謝 [連猴子都能懂的 Git 入門指南](https://backlog.com/git-tutorial/tw/reference/stash.html)：
 
 - `git stash` 直接進行暫存
 - `git stash save` 可以在 save 後面替這次暫存取名字
